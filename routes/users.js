@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { auth } = require("../middlewares/auth");
 const {
   all,
   find,
@@ -9,11 +10,11 @@ const {
   signin
 } = require("../controllers/UsersController");
 
-router.get("/", all);
-router.get("/:id", find);
-router.post("/create", create);
-router.put("/:id", update);
-router.delete("/:id", destroy);
+router.get("/", auth, all);
+router.get("/:id", auth, find);
+router.post("/create", auth, create);
+router.put("/:id", auth, update);
+router.delete("/:id", auth, destroy);
 router.post("/signin", signin);
 
 module.exports = router;
